@@ -39,4 +39,4 @@
 
     hello, world
 
-See senario2.md 
+See [scenario2.md](scenario2.md)
