@@ -16,17 +16,21 @@
 1. 맥북에어 노트북에서 터미널을 실행
 2. hello 프로그램을 작성하고 컴파일
 
-    $ echo '#include <stdio.h>
-    int main(int argc, char** argv) {
-        printf("hello, world");
-        return 0;
-    }' > main.c
-    $ gcc main.c -o hello
+```sh
+$ echo '#include <stdio.h>
+int main(int argc, char** argv) {
+    printf("hello, world");
+    return 0;
+}' > main.c
+$ gcc main.c -o hello
+```
 
 3. hello 프로그램을 실행하면 `hello, world` 가 출력됨
 
-    $ ./hello
-    hello, world
+```sh
+$ ./hello
+hello, world
+```
 
 ### 시나리오2 - HTTP 통신
 
