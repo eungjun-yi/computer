@@ -31,6 +31,7 @@ $ gcc main.c -o hello
 $ ./hello
 hello, world
 ```
+See [scenario1.md](scenario1.md)
 
 ### 시나리오2 - HTTP 통신
 
@@ -44,3 +45,11 @@ hello, world
     hello, world
 
 See [scenario2.md](scenario2.md)
+
+### 시나리오3 - Shell 실행
+
+1. 버추얼 박스에서 우분투 12.04를 콘솔 부팅 모드로 실행
+2. 로그인 후 [MY_SHELL] 프롬프트가 나타나는지 확인
+3. ls 시에 ls 명령 수행하여 해당 디렉토리의 파일이 나타나는지 확인
+
+See [scenario3.md](scenario3.md)
