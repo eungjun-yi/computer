@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="how-http">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="how-http.classpath">
+        <pathelement location="bin"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.ucls"/>
+                <exclude name="**/*.useq"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <!--<target depends="init" name="build"> -->
+    <target name="build">
+        <!--<echo message="${ant.project.name}: ${ant.file}"/>-->
+        <mkdir dir="bin"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="how-http.classpath"/>
+        </javac>
+    </target>
+    <target depends="build" name="run-server">
+        <echo message="java -cp bin com.npcode.http.Server"/>
+	    <java classname="com.npcode.http.Server" >
+            <arg value="-cp"/>
+            <classpath refid="how-http.classpath"/>
+	    </java>
+    </target>
+</project>
