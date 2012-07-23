@@ -35,8 +35,14 @@ public class Server {
                 // String received_total = received_total_buffer.toString();
                 
                 // TODO : generate responding to client
+                String content = "<html><head><title>TITLE : Hello HTTP!</title></head><body>BODY : Hello HTTP!</body></html>"; 
                 String message = "HTTP/1.1 200 OK\n";
-                message += "<html><head><title>TITLE : Hello HTTP!</title></head><body>BODY : Hello HTTP!</body></html>";
+                message += "Date: Sun, 22 July 2012 17:30:00 GMT\n";
+                message += "Server: npcode-http\n";
+                message += "Cache-Control: private\n";
+                message += "Content-Length: " + content.length() + "\n";
+                message += "Content-Type: text/html; charset=utf-8\n";
+                message += content;
                 message += "\n";
                 
                 // write to client
