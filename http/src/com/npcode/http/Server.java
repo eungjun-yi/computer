@@ -14,6 +14,12 @@ public class Server {
             version = segments[2];
         }
     }
+    
+    static public class FileUtil {
+    	public static String getMimeType(java.io.File f){
+    		return new javax.activation.MimetypesFileTypeMap().getContentType(f);
+    	}
+    }
 
     /**
      * @param args
@@ -22,9 +28,11 @@ public class Server {
         System.out.println("Starting HTTP Server ..");
         java.io.File directory = new java.io.File(".");
         System.out.println("Current Dir : " + directory.getAbsolutePath());
+        
+        eu.medsea.mimeutil.MimeUtil.registerMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
 
         try {
-            java.net.ServerSocket serverSocket = new java.net.ServerSocket(8080);
+            java.net.ServerSocket serverSocket = new java.net.ServerSocket(8888);
             while (true) {
                 System.out.println("Waiting for acception ..");
 
@@ -55,21 +63,25 @@ public class Server {
                 if (requestMessage.method.equalsIgnoreCase("GET")) {
                     java.io.File resource = new java.io.File("./htdocs" + requestMessage.uri);
                     if (resource.exists()) {
+                    	java.util.Collection<?> mimeTypes = eu.medsea.mimeutil.MimeUtil.getMimeTypes(resource);
+                    	//String mimeType = FileUtil.getMimeType(resource);
+                    	System.out.println("Mime type is : " + mimeTypes);
+                    	
                         java.io.FileInputStream fis = new java.io.FileInputStream(resource);
 
                         byte[] b = new byte[1024 * 1024];
                         fis.read(b);
+                        
+                        String CRLF = "\r\n";
 
                         // TODO : generate responding to client
                         String content = new String(b);
-                        String message = "HTTP/1.1 200 OK\n";
+                        String message = "HTTP/1.1 200 OK" + CRLF;
                         // message += "Date: Sun, 22 July 2012 17:30:00 GMT\n";
-                        // message += "Server: npcode-http\n";
-                        // message += "Cache-Control: private\n";
-                        message += "Content-Length: " + content.getBytes().length + "\n";
-                        message += "Content-Type: text/html; charset=utf-8\n\n";
+                        message += "Server: npcode-http" + CRLF;
+                        message += "Content-Length: " + content.getBytes().length + CRLF;
+                        message += "Content-Type: " + mimeTypes + CRLF + CRLF;;
                         message += content;
-                        message += "\n";
 
                         response = message;
                     } else {

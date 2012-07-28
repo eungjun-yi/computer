@@ -6,6 +6,9 @@
     <property name="source" value="1.6"/>
     <path id="how-http.classpath">
         <pathelement location="bin"/>
+        <fileset dir="lib">
+    	    <include name="**/*.jar"/>
+		</fileset>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
